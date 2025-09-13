@@ -11,7 +11,7 @@ const posts = [
   { title: 'Hello React!' },
 ]
 
-export function App() {
+export function Blog() {
   return (
     <div style={{ padding: 8 }}>
       <CreatePost />
