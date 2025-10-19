@@ -6,12 +6,12 @@ import { useAuth } from '../contexts/AuthContext.jsx'
 export function CreatePost() {
   const [token] = useAuth()
   const [title, setTitle] = useState('')
-
   const [contents, setContents] = useState('')
+  const [imageURL, setImageURL] = useState('')
 
   const queryClient = useQueryClient()
   const createPostMutation = useMutation({
-    mutationFn: () => createPost(token, { title, contents }),
+    mutationFn: () => createPost(token, { title, contents, imageURL }),
     onSuccess: () => queryClient.invalidateQueries(['posts']),
   })
 
@@ -35,11 +35,24 @@ export function CreatePost() {
         />
       </div>
       <br />
+      <label htmlFor='create-contents'>Ingredients: </label>
+      <br />
       <textarea
         value={contents}
         onChange={(e) => setContents(e.target.value)}
       />
       <br />
+      <div>
+        <label htmlFor='create-imageURL'>Image URL: </label>
+        <br />
+        <input
+          type='text'
+          name='create-imageURL'
+          id='create-imageURL'
+          value={imageURL}
+          onChange={(e) => setImageURL(e.target.value)}
+        />
+      </div>
       <br />
       <input
         type='submit'
