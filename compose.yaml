@@ -8,7 +8,7 @@ services:
     build: backend/
     environment:
       - PORT=3001
-      - DATABASE_URL=mongodb://blog-database:27017/blog
+      - DATABASE_URL=mongodb://localhost:27017/recipe-sharing
     ports:
       - '3001:3001'
     depends_on:
@@ -17,7 +17,7 @@ services:
     build:
       context: .
       args:
-        VITE_BACKEND_URL: https://scaling-memory-vjqvgwq96g435v9-3001.app.github.dev/api/v1
+        VITE_BACKEND_URL: https://effective-space-winner-57xq45x7w9xhprv4-3001.app.github.dev/api/v1
     ports:
       - '3000:80'
     depends_on:

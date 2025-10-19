@@ -1,5 +1,5 @@
 FROM node:20 AS build
-ARG VITE_BACKEND_URL=https://scaling-memory-vjqvgwq96g435v9-3001.app.github.dev/api/v1
+ARG VITE_BACKEND_URL=https://effective-space-winner-57xq45x7w9xhprv4-3001.app.github.dev/api/v1
 WORKDIR /build
 COPY package.json .
 COPY package-lock.json .
