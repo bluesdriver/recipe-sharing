@@ -2,13 +2,27 @@ import { Post } from '../db/models/post.js'
 import { User } from '../db/models/user.js'
 
 export async function createPost(userId, { title, contents, imageURL, tags }) {
-  const post = new Post({ title, author: userId, contents, imageURL, tags })
+  const post = new Post({
+    title,
+    author: userId,
+    contents,
+    imageURL,
+    tags,
+    likes: 0,
+  })
   return await post.save()
 }
 
 async function listPosts(
   query = {},
   { sortBy = 'createdAt', sortOrder = 'descending' } = {},
+) {
+  return await Post.find(query).sort({ [sortBy]: sortOrder })
+}
+
+export async function listPostsByLikes(
+  query = {},
+  { sortBy = 'likes', sortOrder = 'descending' } = {},
 ) {
   return await Post.find(query).sort({ [sortBy]: sortOrder })
 }
@@ -34,11 +48,19 @@ export async function getPostById(postId) {
 export async function updatePost(
   userId,
   postId,
-  { title, contents, imageURL, tags },
+  { title, contents, imageURL, tags, likes },
 ) {
   return await Post.findOneAndUpdate(
     { _id: postId, author: userId },
-    { $set: { title, contents, imageURL, tags } },
+    { $set: { title, contents, imageURL, tags, likes } },
+    { new: true },
+  )
+}
+
+export async function likePost(userId, postId, likes) {
+  return await Post.findOneAndUpdate(
+    { _id: postId, author: userId },
+    { likes: likes + 1 },
     { new: true },
   )
 }
